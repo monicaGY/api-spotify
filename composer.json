@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "ext-http": "*",
         "dedoc/scramble": "^0.12.19",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
