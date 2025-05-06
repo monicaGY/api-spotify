@@ -28,7 +28,9 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Category\\": "src/app/Category",
-            "Shared\\": "src/app/Shared"
+            "Shared\\": "src/app/Shared",
+            "Authentication\\": "src/app/Authentication"
+
         }
     },
     "autoload-dev": {

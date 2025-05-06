@@ -1,5 +1,6 @@
 <?php
 
+use Authentication\Infrastructure\Entrypoint\Http\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Category\Infrastructure\Entrypoint\Http\CategoryController;
@@ -18,8 +19,14 @@ use Category\Infrastructure\Entrypoint\Http\CategoryController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::post('/register', [AuthenticationController::class, 'register']);
+});
 
-
-Route::group(['prefix' => 'v1'], function () {
+Route::group([
+    'prefix' => 'v1',
+    'middleware' => ['auth:sanctum']
+], function () {
     Route::resource('categories', CategoryController::class);
 });
