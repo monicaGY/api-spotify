@@ -4,6 +4,7 @@ namespace Category\Application\Handler;
 
 use Category\Application\Transform\TransformerCategories;
 use Category\Domain\UseCase\ListCategoriesUseCase;
+use Exception;
 use Illuminate\Http\JsonResponse;
 
 class ListCategoriesHandler
@@ -15,7 +16,16 @@ class ListCategoriesHandler
 
     public function handle(): JsonResponse
     {
-        return $this->transformer->transform($this->listCategories->execute());
+        try{
+
+            return $this->transformer->transform($this->listCategories->execute());
+
+        }catch (Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 }

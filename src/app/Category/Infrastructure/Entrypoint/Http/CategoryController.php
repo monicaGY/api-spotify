@@ -3,8 +3,11 @@
 namespace Category\Infrastructure\Entrypoint\Http;
 
 use App\Http\Controllers\Controller;
+use Category\Application\Handler\GetCategoryHandler;
 use Category\Application\Handler\ListCategoriesHandler;
+use Category\Application\Transform\TransformCategory;
 use Category\Application\Transform\TransformerCategories;
+use Category\Domain\UseCase\GetCategoryUseCase;
 use Category\Domain\UseCase\ListCategoriesUseCase;
 use Category\Infrastructure\Persistence\Spotify\ApiSpotifyCategoryRepository;
 use Illuminate\Http\JsonResponse;
@@ -13,7 +16,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List Categories
      */
     public function index(): JsonResponse
     {
@@ -26,7 +29,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Not available - Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
@@ -34,15 +37,20 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get Category by ID
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        return (new GetCategoryHandler(
+            new GetCategoryUseCase(
+                new ApiSpotifyCategoryRepository()
+            ),
+            new TransformCategory()
+        ))->handle($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Not available - Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -50,7 +58,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Not available - Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {

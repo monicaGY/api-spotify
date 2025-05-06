@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::resource('category', CategoryController::class);
+    Route::resource('categories', CategoryController::class);
 });

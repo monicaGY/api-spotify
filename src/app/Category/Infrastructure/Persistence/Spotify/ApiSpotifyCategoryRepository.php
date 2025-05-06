@@ -15,6 +15,13 @@ class ApiSpotifyCategoryRepository extends ApiSpotify implements CategoryReposit
         $categories = $this->request('GET', 'browse/categories');
         return array_map(function ($category) { return $this->createCategory($category); }, $categories['categories']['items']);
     }
+
+    public function get($id): Category
+    {
+        $category = $this->request('GET', 'browse/categories/'.$id);
+
+        return $this->createCategory($category);
+    }
     private function createCategory($category): Category
     {
         return new Category(
