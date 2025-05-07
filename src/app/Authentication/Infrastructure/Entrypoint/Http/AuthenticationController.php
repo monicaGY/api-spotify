@@ -4,7 +4,7 @@ namespace Authentication\Infrastructure\Entrypoint\Http;
 
 use Authentication\Application\Handler\LoginUserHandler;
 use Authentication\Application\Handler\RegisterUserHandler;
-use Authentication\Application\Transform\TransformerLogin;
+use Authentication\Application\Transform\TransformerAuth;
 use Authentication\Application\Transform\TransformerRegister;
 use Authentication\Domain\UseCase\LoginUserUseCase;
 use Authentication\Domain\UseCase\RegisterUserUseCase;
@@ -15,23 +15,31 @@ use Illuminate\Http\JsonResponse;
 
 class AuthenticationController
 {
+    /**
+     * Login
+     * @unauthenticated
+     */
     public function login(LoginRequest $request): JsonResponse
     {
         return (new LoginUserHandler(
             new LoginUserUseCase(
                 new MysqlAuthenticationRepository()
             ),
-            new TransformerLogin()
+            new TransformerAuth()
         ))->handle($request->validated());
 
     }
+    /**
+     * Register
+     * @unauthenticated
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
         return (new RegisterUserHandler(
             new RegisterUserUseCase(
                 new MysqlAuthenticationRepository()
             ),
-            new TransformerRegister()
+            new TransformerAuth()
         ))->handle($request->validated());
 
     }

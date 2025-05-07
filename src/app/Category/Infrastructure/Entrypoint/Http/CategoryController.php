@@ -31,10 +31,11 @@ class CategoryController extends Controller
     /**
      * Not available - Store a newly created resource in storage.
      */
+    /*
     public function store(Request $request)
     {
         //
-    }
+    }*/
 
     /**
      * Get Category by ID
@@ -52,16 +53,18 @@ class CategoryController extends Controller
     /**
      * Not available - Update the specified resource in storage.
      */
+    /*
     public function update(Request $request, string $id)
     {
         //
-    }
+    }*/
 
     /**
      * Not available - Remove the specified resource from storage.
      */
+    /*
     public function destroy(string $id)
     {
         //
-    }
+    }*/
 }

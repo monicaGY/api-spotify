@@ -2,7 +2,7 @@
 
 namespace Authentication\Application\Handler;
 
-use Authentication\Application\Transform\TransformerLogin;
+use Authentication\Application\Transform\TransformerAuth;
 use Authentication\Domain\UseCase\LoginUserUseCase;
 use Illuminate\Http\JsonResponse;
 
@@ -10,7 +10,7 @@ class LoginUserHandler
 {
     public function __construct(
         private readonly LoginUserUseCase $loginUser,
-        private readonly TransformerLogin $transform,
+        private readonly TransformerAuth  $transform,
     ){    }
 
     public function handle($user): JsonResponse

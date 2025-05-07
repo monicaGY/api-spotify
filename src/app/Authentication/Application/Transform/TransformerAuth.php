@@ -4,7 +4,7 @@ namespace Authentication\Application\Transform;
 
 use Illuminate\Http\JsonResponse;
 
-class TransformerLogin
+class TransformerAuth
 {
     public function transform($token): JsonResponse
     {
