@@ -3,7 +3,7 @@ services:
     mysql:
         image: mysql:5.7
         container_name: mysql
-        restart: always
+        restart: unless-stopped
         environment:
             MYSQL_ROOT_PASSWORD: my_secret_password
         ports:
@@ -16,15 +16,24 @@ services:
         build:
             context: ./docker/php
         container_name: laravel-app
+        restart: unless-stopped
         volumes:
             - .:/var/www/html
         ports:
             - "9000:9000"
+        depends_on:
+            - mysql
         networks:
             - laravel
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.75'
+                    memory: '512M'
     web:
         image: nginx:latest
         container_name: laravel-nginx
+        restart: unless-stopped
         ports:
             - "8080:80"
         volumes:
